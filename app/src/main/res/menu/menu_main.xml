@@ -4,19 +4,10 @@
     <item
             android:id="@+id/action_search"
             android:orderInCategory="100"
-            android:title="Search"
+            android:title="@string/search"
             android:icon="@drawable/ic_launcher_background"
             app:showAsAction="always"
             app:actionViewClass="android.support.v7.widget.SearchView"
             android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
     </item>
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        android:title="Settings"
-    >
-
-    </item>
-
 </menu>

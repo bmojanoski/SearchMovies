@@ -2,7 +2,6 @@ package com.example.moviesapkfinal.db;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 import android.os.AsyncTask;
 import com.example.moviesapkfinal.Models.Movie;
 
@@ -27,10 +26,6 @@ public class MovieRepository {
     public LiveData<List<Movie>> getAll(){
         return allMovies;
     }
-    public Movie findById(String id){
-        return movieDao.getMovie(id);
-    }
-
 
     public static class InsertMovieAsyncTask extends AsyncTask<Movie,Void,Void>{
         private MovieDao movieDao;

@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
         tools:context=".MovieDetailsActivity">
 
     <ImageView
@@ -29,6 +30,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
             android:ellipsize="end"
+            android:textColor="@color/colorWhite"
             android:fontFamily="sans-serif-black"
             android:layout_below="@id/img_details"
             android:layout_marginStart="20dp"/>
@@ -44,6 +46,7 @@
             android:layout_centerVertical="true"
             android:drawablePadding="10dp"
             android:singleLine="true"
+            android:textColor="@color/colorWhite"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:layout_below="@id/title_details"
@@ -60,6 +63,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:drawablePadding="10dp"
+            android:textColor="@color/colorWhite"
             android:singleLine="true"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"

@@ -1,11 +1,10 @@
 package com.example.moviesapkfinal;
 
-import android.app.Application;
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -13,9 +12,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.moviesapkfinal.Models.Movie;
 import com.example.moviesapkfinal.db.MovieDatabase;
-import com.example.moviesapkfinal.db.MovieRepository;
-
-import java.util.List;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -24,6 +20,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private String  mtitle, mimdbId, myear, mtype,mImg;
 
     private  MovieDatabase movieDatabase;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

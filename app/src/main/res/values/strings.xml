@@ -5,4 +5,6 @@
     <string name="type">Type</string>
     <string name="year">Year</string>
     <string name="title">Title</string>
+    <string name="searchmovie">Search Movie</string>
+    <string name="search">Search</string>
 </resources>

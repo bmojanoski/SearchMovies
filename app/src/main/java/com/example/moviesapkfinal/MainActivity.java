@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //calling the api and getting back info plus populating the adapter and recycler view
+    //calling the api and getting back info
     public void LoadJson(final String keyword){
 
         MovieApi movieApi = MovieApiClient.getApiClient().create(MovieApi.class);

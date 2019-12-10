@@ -19,7 +19,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.moviesapkfinal.Models.Movie;
-import com.example.moviesapkfinal.api.MappingApi.MovieResponse;
 import com.example.moviesapkfinal.R;
 
 import java.util.List;
