@@ -19,10 +19,13 @@ public interface MovieDao {
     void delete(Movie movie);
 
     @Query("SELECT * from movie_table")
-    public LiveData<List<Movie>> getAll();
+     LiveData<List<Movie>> getAll();
 
     @Query("DELETE FROM movie_table")
     void deleteAll();
+
+    @Query("SELECT * FROM movie_table WHERE imdbID == :imdbID")
+     Movie getMovie(String imdbID);
 
 }
 

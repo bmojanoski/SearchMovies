@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private List<MovieResponse> movieResponses = new ArrayList<>();
     private List<Movie> moviesList = new ArrayList<>();
 
-    private String TAG = MainActivity.class.getSimpleName();
-
     private MovieViewModel movieViewModel;
 
 
@@ -51,34 +49,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         recyclerView = findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(MainActivity.this,2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-       movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-//        movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
-//            @Override
-//            public void onChanged(@Nullable List<Movie> movies) {
-//                movieViewModel.deleteAll();
-//                moviesList = new ArrayList<>();
-//                for(Movie movie : movies){
-//                    Movie mov = new Movie(movie.getTitle(),movie.getYear(),movie.getImdbID(),movie.getType(),movie.getPoster());
-//                    moviesList.add(mov);
-//                    movieViewModel.insert(mov);
-//                }
-//                adapter = new Adapter(moviesList,MainActivity.this);
-//                recyclerView.setAdapter(adapter);
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
-
-        recyclerView = findViewById(R.id.recycler_view);
-
-
         LoadJson("");
 
-
+        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movies) {
+                if (movies != null) {
+                    adapter = new Adapter(movies, MainActivity.this);
+                    recyclerView.setAdapter(adapter);
+                    initListener(adapter);
+                }
+            }
+        });
     }
 
     //calling the api and getting back info plus populating the adapter and recycler view
@@ -95,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             call = movieApi.getMovie(id,plot,s);
         }
 
-
         call.enqueue(new Callback<MovieListResponse>() {
             @Override
             public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
@@ -107,26 +95,18 @@ public class MainActivity extends AppCompatActivity {
 
                     moviesList.clear();
                     movieViewModel.deleteAll();
-                    moviesList = new ArrayList<>();
+
                     movieResponses = response.body().getMovieResponse();
                     for(MovieResponse movie : movieResponses){
                         Movie mov = new Movie(movie.getTitle(),movie.getYear(),movie.getImdbID(),movie.getType(),movie.getPoster());
                         moviesList.add(mov);
                         movieViewModel.insert(mov);
                     }
-
-                    adapter = new Adapter(moviesList,MainActivity.this);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-
                     Toast.makeText(MainActivity.this,"Success saved!", Toast.LENGTH_SHORT).show();
-                    initListener();
                 }else{
                     Toast.makeText(MainActivity.this,"No result", Toast.LENGTH_SHORT).show();
                     moviesList.clear();
-                    adapter = new Adapter(moviesList,MainActivity.this);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                    movieViewModel.deleteAll();
                 }
             }
 
@@ -139,18 +119,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     //when some item is clicked
-    private void initListener(){
+    private void initListener(Adapter adapter){
         adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
-                MovieResponse movieResponse = movieResponses.get(position);
-                intent.putExtra("title", movieResponse.getTitle());
-                intent.putExtra("imdbID", movieResponse.getImdbID());
-                intent.putExtra("Poster", movieResponse.getPoster());
-                intent.putExtra("Type", movieResponse.getType());
-                intent.putExtra("Year", movieResponse.getYear());
-                intent.putExtra("img", movieResponse.getPoster());
+                Movie movie = moviesList.get(position);
+                intent.putExtra("id",movie.getId());
+                intent.putExtra("title", movie.getTitle());
+                intent.putExtra("imdbID", movie.getImdbID());
+                intent.putExtra("Poster", movie.getPoster());
+                intent.putExtra("Type", movie.getType());
+                intent.putExtra("Year", movie.getYear());
+                intent.putExtra("img", movie.getPoster());
                 startActivity(intent);
             }
         });

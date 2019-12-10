@@ -27,7 +27,9 @@ public class MovieRepository {
     public LiveData<List<Movie>> getAll(){
         return allMovies;
     }
-
+    public Movie findById(String id){
+        return movieDao.getMovie(id);
+    }
 
 
     public static class InsertMovieAsyncTask extends AsyncTask<Movie,Void,Void>{

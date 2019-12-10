@@ -1,5 +1,6 @@
 package com.example.moviesapkfinal.Models;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -13,6 +14,7 @@ public class Movie {
 
     private String year;
 
+    @ColumnInfo(name = "imdbID")
     private String imdbID;
 
     private String type;
